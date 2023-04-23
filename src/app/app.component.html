@@ -7,16 +7,6 @@
   <div class="icon" (click)="ShowMenu()">
     <i class="ti ti-table"></i>
   </div>
-
-  <button
-    class="btn btn-danger"
-    style="cursor: pointer; position: absolute; right: 10px; top: 10px"
-    (click)="DeleteAccount()"
-    *ngIf="id"
-  >
-    Eliminar Cuenta
-  </button>
-
   <div
     class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10"
   >
@@ -100,20 +90,32 @@
 
   <!-- Lista -->
 
-  <table [ngClass]="{'show-table': showMenu}">
-    <thead>
-      <tr>
-        <th>Correo</th>
-        <th>Fecha</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let info of allData">
-        <th style="background: var(--bs-white)">{{ info.correo }}</th>
-        <th style="background: var(--bs-purple); color: white">
-          {{ info.fecha }}
-        </th>
-      </tr>
-    </tbody>
-  </table>
+  <div class="contenedor_tabla" [ngClass]="{ 'show-table': showMenu }">
+    <table>
+      <thead>
+        <tr>
+          <th>Correo Electronicos</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let info of allData;" (click)="DeleteAccount(info.id)">
+          <th
+            style="
+              background: var(--bs-white);
+              max-width: 300px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{ info.correo }}
+          </th>
+          <th style="background: var(--bs-purple); color: white">
+            {{ info.fecha }}
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

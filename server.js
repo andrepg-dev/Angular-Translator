@@ -14,6 +14,11 @@ require("mongoose");
 app.use(cors());
 app.use(express.json());
 
+// Bienvenida
+app.get("/", (req, res) => {
+  res.send("Bienvenido a mi API, espero la disfrutes!").status(200);
+});
+
 // Obteniendo los datos de MongoDB
 app.get("/db", (req, res) => {
   modelo
@@ -40,7 +45,7 @@ app.get("/db/:id", (req, res) => {
 });
 
 // Enviado datos por metodo Post al servidor
-app.post("/users", (req, res) => {
+app.post("/db/add", (req, res) => {
   const contenido = req.body;
 
   if (!contenido.important) {
@@ -65,16 +70,44 @@ app.post("/users", (req, res) => {
 });
 
 // Eliminar datos
-app.delete("/db/delete/:id", (req,res)=>{
+app.delete("/db/delete/:id", (req, res, next) => {
   const { id } = req.params;
-  modelo.findByIdAndDelete(id).then((data)=>{
-    res.json(data).status(200);
-  })
-})
 
-// Bienvenida
-app.get("/", (req, res) => {
-  res.send("Bienvenido a mi API, espero la disfrutes!").status(200);
+  modelo
+    .findByIdAndDelete(id)
+    .then((result) => {
+      console.log("¡Se ha eliminado a un usuario :d!", result);
+      return res.json(result).status(200).end();
+    })
+    .catch((error) => next(error));
+});
+
+// Actualizar datos
+app.put("/db/update/:id", (req, res) => {
+  const { id } = req.params;
+  const request_body = req.body;
+
+  if (!request_body.contraseña) {
+    return res.json({ error: "Tienes que subir una contraseña" }).status(400);
+  }
+
+  const newInfo = {
+    contraseña: request_body.contraseña,
+    fecha: new Date(),
+  };
+
+  modelo.findByIdAndUpdate(id, newInfo, { new: true }).then((result) => {
+    res.json(result);
+    console.log("¡Se ha actualizado un nuevo usuario!", result);
+  });
+});
+
+app.use((error, req, res, next) => {
+  if (error.name == "CastError") {
+    res.status(400).send({ error: "no estas usando bien la id" });
+  } else {
+    res.status(500).end();
+  }
 });
 
 // Abriendo el servidor

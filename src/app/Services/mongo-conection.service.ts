@@ -10,7 +10,7 @@ export class MongoConectionService {
   constructor(private http: HttpClient) {}
 
   url = 'http://localhost:3200/db';
-  post = 'http://localhost:3200/users';
+  post = 'http://localhost:3200/db/add';
   delete = 'http://localhost:3200/db/delete'
 
   GetData(): Observable<InfoCuenta> {

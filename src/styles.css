@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 body{
-    background: #EEE;
+    background: #232323;
+}
+.alert{
+    z-index: 20;
 }

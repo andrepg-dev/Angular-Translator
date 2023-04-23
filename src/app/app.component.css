@@ -27,18 +27,34 @@ div {
   border-radius: 5px;
 }
 
-table {
+.contenedor_tabla{
   position: absolute;
-  left: -100%;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -10%;
+  height: 500px;
+  overflow: auto;
   max-width: 450px;
-  opacity: 0.8;
-  overflow-y: scroll;
-  transition: all 0.5s;
+  transition: all 0.3s;
+  direction: rtl;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.contenedor_tabla::-webkit-scrollbar{
+  width: 5px;
+  background: white;
+  left: 0;
+}
+
+.contenedor_tabla::-webkit-scrollbar-thumb{
+  background: var(--bs-purple);
 }
 
 .show-table {
   left: 0px;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .icon {
@@ -54,7 +70,7 @@ table {
   cursor: pointer;
 }
 
-.icon:hover{
+.icon:hover {
   filter: brightness(0.5);
 }
 
@@ -78,8 +94,8 @@ th {
   text-align: center;
   border: 1px black solid;
   padding: 10px;
+  user-select: none;
 }
-
 
 tbody th {
   font-size: 14px;
