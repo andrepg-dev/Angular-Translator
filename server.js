@@ -64,6 +64,14 @@ app.post("/users", (req, res) => {
   });
 });
 
+// Eliminar datos
+app.delete("/db/delete/:id", (req,res)=>{
+  const { id } = req.params;
+  modelo.findByIdAndDelete(id).then((data)=>{
+    res.json(data).status(200);
+  })
+})
+
 // Bienvenida
 app.get("/", (req, res) => {
   res.send("Bienvenido a mi API, espero la disfrutes!").status(200);
