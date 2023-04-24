@@ -55,6 +55,7 @@ div {
   left: 0px;
   opacity: 1;
   pointer-events: all;
+  z-index: 100;
 }
 
 .icon {
@@ -103,4 +104,7 @@ tbody th {
 tbody th:hover {
   filter: brightness(0.6);
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
 }

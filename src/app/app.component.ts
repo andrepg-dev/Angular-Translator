@@ -13,12 +13,10 @@ export class AppComponent {
   apellido!: string;
 
   allData: any;
-
   logued!: boolean;
 
   constructor(private mongodb: MongoConectionService) {
     this.ObtenerDatos();
-    this.voice('hola');
   }
 
   Send() {
@@ -75,21 +73,5 @@ export class AppComponent {
   showMenu!: boolean;
   ShowMenu() {
     this.showMenu = !this.showMenu;
-  }
-
-  // make a sum of two numbers
-  sum(a: number, b: number) {
-    return a + b;
-  }
-
-  // haz una funcion que pueda escuchar la voz
-  voice(text: string) {
-    const speech = new SpeechSynthesisUtterance();
-    speech.lang = 'es-ES';
-    speech.text = text;
-    speech.volume = 1;
-    speech.rate = 1;
-    speech.pitch = 1;
-    window.speechSynthesis.speak(speech);
   }
 }
