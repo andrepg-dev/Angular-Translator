@@ -2,7 +2,8 @@ const { model, Schema } = require("mongoose");
 
 const esquema = new Schema({
   correo: String,
-  contraseña: String,
+  contrasena: String,
+  fullName: String,
   fecha: Date,
   important: Boolean,
 });

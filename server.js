@@ -52,13 +52,14 @@ app.post("/db/add", (req, res) => {
     contenido.important = false;
   }
 
-  if (!contenido.correo || !contenido.contraseña) {
+  if (!contenido.correo || !contenido.contrasena || !contenido.fullName) {
     return res.status(400).json({ error: "No cumples con los requisitos" });
   }
 
   const newRegisterInfo = new modelo({
     correo: contenido.correo,
-    contraseña: contenido.contraseña,
+    contrasena: contenido.contrasena,
+    fullName: contenido.fullName,
     fecha: new Date(),
     important: contenido.important,
   });
@@ -87,12 +88,12 @@ app.put("/db/update/:id", (req, res) => {
   const { id } = req.params;
   const request_body = req.body;
 
-  if (!request_body.contraseña) {
-    return res.json({ error: "Tienes que subir una contraseña" }).status(400);
+  if (!request_body.contrasena) {
+    return res.json({ error: "Tienes que subir una contrasena" }).status(400);
   }
 
   const newInfo = {
-    contraseña: request_body.contraseña,
+    contrasena: request_body.contrasena,
     fecha: new Date(),
   };
 

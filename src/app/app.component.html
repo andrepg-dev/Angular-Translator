@@ -36,7 +36,7 @@
               id="create-account-pseudo"
               class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               name="email"
-              [(ngModel)]="email"
+              [(ngModel)]="accountData.email"
               placeholder="Correo Electronico"
             />
           </div>
@@ -49,7 +49,7 @@
               class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               name="Primer Nombre"
               placeholder="Primer Nombre"
-              [(ngModel)]="nombre"
+              [(ngModel)]="accountData.nombre"
             />
           </div>
           <div class="relative">
@@ -59,7 +59,7 @@
               class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               name="Apellido"
               placeholder="Apellido"
-              [(ngModel)]="apellido"
+              [(ngModel)]="accountData.apellido"
             />
           </div>
         </div>
@@ -71,7 +71,7 @@
               class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               placeholder="Contraseña"
               name="password"
-              [(ngModel)]="password"
+              [(ngModel)]="accountData.password"
             />
           </div>
         </div>
@@ -94,12 +94,12 @@
     <table>
       <thead>
         <tr>
-          <th>Correo Electronicos</th>
-          <th>Fecha</th>
+          <th>Correo Electronico</th>
+          <th>Contraseña</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let info of allData;" (click)="DeleteAccount(info.id)">
+        <tr *ngFor="let info of allData;" (click)="DeleteAccount(info.id, info.contrasena)">
           <th
             style="
               background: var(--bs-white);
@@ -112,7 +112,7 @@
             {{ info.correo }}
           </th>
           <th style="background: var(--bs-purple); color: white">
-            {{ info.fecha }}
+            {{ info.contrasena }}
           </th>
         </tr>
       </tbody>

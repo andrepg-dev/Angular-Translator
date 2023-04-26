@@ -1,7 +1,7 @@
 export interface InfoCuenta {
-  contraseña: string;
   correo: string;
+  contrasena: string;
+  fullName: string,
   fecha: Date;
-  id: string;
   important: boolean;
 }
