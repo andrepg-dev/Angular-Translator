@@ -45,7 +45,7 @@ app.get("/db/:id", (req, res) => {
 });
 
 // Enviado datos por metodo Post al servidor
-app.post("/db/add", (req, res) => {
+app.post("/db", (req, res) => {
   const contenido = req.body;
 
   if (!contenido.important) {
