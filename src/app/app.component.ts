@@ -8,31 +8,42 @@ import { InfoCuenta } from './Interfaces/mongodb.interface';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-
   accountData = {
     email: '',
     password: '',
     nombre: '',
     apellido: '',
-  }
+  };
 
   allData: any;
   logued!: boolean;
 
   constructor(private mongodb: MongoConectionService) {
     this.ObtenerDatos();
+
+    document.addEventListener('keydown', (event) => {
+      event.preventDefault();
+      if (event.key == 'a' && event.ctrlKey) {
+        console.log('Has tocado el control + i');
+      }
+    });
   }
 
   Send() {
-    if (!this.accountData.email || !this.accountData.password || !this.accountData.nombre || !this.accountData.apellido) {
+    if (
+      !this.accountData.email ||
+      !this.accountData.password ||
+      !this.accountData.nombre ||
+      !this.accountData.apellido
+    ) {
       return console.log('Faltan datos');
     }
-    
+
     // Validando email
-    if(!this.EmailValidation(this.accountData.email)){
+    if (!this.EmailValidation(this.accountData.email)) {
       return console.log('Email invalido');
     }
-    
+
     const fullName = this.accountData.nombre + ' ' + this.accountData.apellido;
 
     const body: InfoCuenta = {
@@ -43,16 +54,16 @@ export class AppComponent {
       fecha: new Date(),
     };
 
-    this.mongodb.SendData(body).subscribe( result => {
+    this.mongodb.SendData(body).subscribe((result) => {
       console.log(result);
-      
+
       // Reseteando formulario
       this.accountData = {
         email: '',
         password: '',
         nombre: '',
         apellido: '',
-      }
+      };
       this.ShowAlert();
 
       // Actualizando data enviada
@@ -65,7 +76,9 @@ export class AppComponent {
       return console.log('No tienes id');
     }
 
-    const prompt_password = prompt('Escribe la contraseña para eliminar la cuenta');
+    const prompt_password = prompt(
+      'Escribe la contraseña para eliminar la cuenta'
+    );
 
     if (prompt_password == contraseña) {
       this.mongodb.DeleteData(id).subscribe((d) => {
@@ -96,15 +109,15 @@ export class AppComponent {
   }
 
   EmailValidation(email: string): boolean {
-
-    const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    const emailRegex =
+      /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
     // Validando email
     if (!emailRegex.test(email)) {
       // Email invalido
-      return false
+      return false;
     }
     // Email valido
-    return true
+    return true;
   }
 }
