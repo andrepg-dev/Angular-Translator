@@ -10,7 +10,6 @@ export class MongoConectionService {
   constructor(private http: HttpClient) {}
 
   url = 'http://localhost:3200/db';
-  post = 'http://localhost:3200/db/add';
   delete = 'http://localhost:3200/db/delete'
 
   GetData(): Observable<InfoCuenta> {
@@ -18,10 +17,10 @@ export class MongoConectionService {
   }
 
   SendData(data: object): Observable<InfoCuenta> {
-    return this.http.post<InfoCuenta>(this.post, data);
+    return this.http.post<InfoCuenta>(this.url, data);
   }
 
-  DeleteData(id: string){
+  DeleteData(id: string){ 
     return this.http.delete(`http://localhost:3200/db/delete/${id}`)
   }
 
