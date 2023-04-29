@@ -1,8 +1,93 @@
-<button class="btn btn-primary" (click)="recognition()">Start recording</button>
-<button class="btn btn-danger" (click)="stop_recognition()">Stop</button>
-<button class="btn btn-success" (click)="hear_voice()">Hear Voice</button>
+<div class="contenedor">
+  <div class="menu">
+    <div class="logo">
+      <img src="../../assets/Logo Personal Andre Ponce.svg" alt="logo" />
+    </div>
+    <div class="logo-title">
+      <h1>TRANSLATE APP</h1>
+      <span class="material-symbols-outlined"> translate </span>
+    </div>
+    <div class="logo-buttons">
+      <button class="btn-edit" (click)="LogOut()">
+        Salir<span class="material-symbols-outlined"> logout </span>
+      </button>
+    </div>
+  </div>
 
-<button class="btn btn-danger" (click)="translate()"> Translate</button>
+  <div class="contenido-traductor">
+    <div class="box">
+      <h3 class="box-title">
+        ¿A QUÉ IDIOMA QUIERES TRADUCIR?
 
-<h1 style="color: white;" class="mt-5">{{text_recognition}}</h1>
-<h1 style="color: white;" class="mt-5">{{result}}</h1>
+        <select
+          id="pet-select"
+          name="languageSelectedTo"
+          [(ngModel)]="languageSelectedTo"
+          (change)="translate()"
+        >
+          <option value="">Seleccionar un idioma</option>
+          <option *ngFor="let idiomas of languagesArray" [value]="idiomas[0]">
+            {{ idiomas[1] }}
+          </option>
+        </select>
+      </h3>
+
+      <div class="box-translate">
+        <div class="from">
+          <div class="input">
+            <textarea
+              [(ngModel)]="text"
+              placeholder="Ingresar texto"
+              (keyup)="translate()"
+            ></textarea>
+          </div>
+
+          <div class="icons">
+            <span class="material-symbols-outlined" (click)="hear_voice(text, languageSelectedFrom)"> volume_up </span>
+            <span class="material-symbols-outlined" (click)="recognition()"> mic </span>
+          </div>
+
+          <select
+            id="pet-select"
+            name="languageSelectedFrom"
+            [(ngModel)]="languageSelectedFrom"
+            (change)="translate()"
+          >
+            <option value="">Seleccionar un idioma</option>
+            <option *ngFor="let idiomas of languagesArray" [value]="idiomas[0]">
+              {{ idiomas[1] }}
+            </option>
+          </select>
+        </div>
+
+        <div class="reverse">
+          <span class="icon material-symbols-outlined" (click)="reverse()">
+            swap_horiz
+          </span>
+        </div>
+
+        <div class="to">
+          <div class="input">
+            <textarea [(ngModel)]="result" placeholder="Traducción"></textarea>
+          </div>
+
+          <div class="icons" style="justify-content: flex-end;">
+            <span class="material-symbols-outlined" (click)="hear_voice(result, languageSelectedTo)"> volume_up </span>
+          </div>
+
+          <select
+            id="pet-select"
+            name="languageSelectedTo"
+            [(ngModel)]="languageSelectedTo"
+            (change)="translate()"
+          >
+            <option value="">Seleccionar un idioma</option>
+            <option *ngFor="let idiomas of languagesArray" [value]="idiomas[0]">
+              {{ idiomas[1] }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

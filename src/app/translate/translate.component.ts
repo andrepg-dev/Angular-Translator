@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { languages_symbols } from '../translate/languages';
 import { TranslateService } from '../Services/translate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-translate',
@@ -11,7 +12,12 @@ export class TranslateComponent {
   // Languages variables
   languages = languages_symbols;
   languagesArray = Object.entries(this.languages);
-  result: any;
+  languageSelectedTo = 'en';
+  languageSelectedFrom = 'es';
+  result!: string;
+
+  // Inputs text values variables
+  text: string = '';
 
   // Speech Recognition Variables
   windows_recognition = new (window as any).webkitSpeechRecognition();
@@ -21,13 +27,20 @@ export class TranslateComponent {
   // Hear Voice From Navigator variables
   navigator_speak = new SpeechSynthesisUtterance();
 
-  constructor(private translateService: TranslateService) {}
+  constructor(private translateService: TranslateService, private navegador: Router) {}
 
   // Translate Function
   translate() {
-    this.translateService.translate(this.text_recognition, 'es', 'fr').subscribe((res: any) => {
+    // If the text null or less than 5
+    if (!this.text) {
+      this.result = '';
+      return;
+    }
+
+    this.translateService
+      .translate(this.text, this.languageSelectedFrom, this.languageSelectedTo)
+      .subscribe((res: any) => {
         this.result = res[0][0][0];
-        console.log(this.result);
       });
   }
 
@@ -37,6 +50,7 @@ export class TranslateComponent {
 
     this.windows_recognition.onresult = (event: any) => {
       this.text_recognition = event.results[0][0].transcript;
+      this.text += ` ${this.text_recognition}`;
     };
 
     this.windows_recognition.addEventListener('end', () => {
@@ -49,16 +63,39 @@ export class TranslateComponent {
     this.windows_recognition.stop();
   }
 
-  hear_voice() {
+  hear_voice(tospeak: string, language: string) {
     // Making a validation to check if the result is null
-    if(!this.result){
+    if (!tospeak) {
       return;
     }
 
-    this.navigator_speak.text = this.result;
-    this.navigator_speak.lang = 'fr';
+    console.log({tospeak, language});
+
+    this.navigator_speak.text = tospeak;
+    this.navigator_speak.lang = language;
     this.navigator_speak.rate = 0.8;
 
     speechSynthesis.speak(this.navigator_speak);
+  }
+
+  reverse() {
+    const previus_language_from = this.languageSelectedFrom;
+    const previus_language_to = this.languageSelectedTo;
+
+    const previus_text = this.text;
+    const previus_result = this.result;
+
+    // Changing values to reverse
+    this.languageSelectedFrom = previus_language_to;
+    this.languageSelectedTo = previus_language_from;
+
+    this.text = previus_result;
+    this.result = previus_text;
+
+    this.translate();
+  }
+
+  LogOut(){
+    this.navegador.navigate(['/login']);
   }
 }
