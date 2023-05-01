@@ -7,6 +7,8 @@
   color: white;
 }
 
+/* Last Point */
+
 .contenedor {
   position: absolute;
   left: 0;
@@ -105,21 +107,21 @@
   margin-top: 80px;
   width: 100%;
   height: 87.6%;
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .contenedor .box {
+  position: relative;
   padding: 30px;
   width: 80%;
-  height: 470px;
   background: #232323;
   box-shadow: 0px 0px 4px white;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  top: -15px;
 }
 
 .box-title {
@@ -161,7 +163,6 @@
 .box-translate .input {
   width: 100%;
   height: 60%;
-  background: red;
 }
 
 .box-translate .input textarea {
@@ -175,15 +176,15 @@
   letter-spacing: 1px;
 }
 
-.box-translate .icons{
+.box-translate .icons {
   width: 100%;
   height: 40px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
 }
 
-.box-translate .icons span{
+.box-translate .icons span {
   font-size: 20px;
   padding: 5px;
   color: var(--bs-white);
@@ -191,20 +192,28 @@
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
+  transition: 0.1s;
 }
 
+.box-translate .icons span:hover {
+  background: #363636;
+  box-shadow: 0px 0px 5px white;
+}
 
-.box-translate select{
+.icons p {
+  transition: 0.3s;
+}
+
+.box-translate select {
   height: 60px;
   padding: 0px 20px;
-  border-radius: 10px 10px 0px 0px;
-  color: var(--bs-blue);
+  border-radius: 10px;
   font-size: 17px;
   outline: none;
 }
 
-.box-translate select:focus{
-  box-shadow: 0px 0px 5px white;
+.box-translate select:focus {
+  box-shadow: 0px 0px 3px white;
 }
 
 .box-translate .reverse {
@@ -222,10 +231,10 @@
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
-  transition: 0.1s;
+  transition: 0.1s linear;
 }
 
-.box-translate .reverse .icon:active{
+.box-translate .reverse .icon:active {
   transform: scale(0.9);
 }
 
@@ -234,4 +243,115 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.text-blue {
+  color: var(--bs-blue) !important;
+  transform: scale(1.1);
+  box-shadow: 0px 0px 5px white;
+}
+
+.copy {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #393646;
+  padding-left: 5px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 20px;
+  box-shadow: 0px 0px 5px white;
+}
+
+.copy * {
+  box-shadow: none !important;
+}
+
+footer {
+  width: 100%;
+  height: 4rem;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+footer * {
+  color: gray;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer *:hover {
+  box-shadow: 0px 0px 1px white;
+}
+
+@media screen and (max-width: 1000px) {
+
+  .logo-title{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: nowrap;
+  }
+
+  .logo-title * {
+    font-size: 16px;
+  }
+
+  .btn-edit{
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .btn-edit *{
+    font-size: 13px;
+  }
+
+  .menu{
+    height: 70px;
+    padding: 0px 20px;
+  }
+
+  .contenedor .box  {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .box-translate{
+    height: 220px;
+  }
+
+  .box-translate .reverse .icon{
+    padding: 5px;
+    font-size: 25px;
+  }
+
+  .box-translate .input textarea{
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .box-translate select{
+    padding: 0px 10px;
+    height: 40px;
+  }
+
+  .box-translate .icons span{
+    font-size: 25px;
+  }
+
+  .box-translate .input{
+    height: 40%;
+  }
+
+  .contenido-traductor{
+    padding: 20px;
+  }
+
 }

@@ -26,8 +26,14 @@ export class TranslateComponent {
 
   // Hear Voice From Navigator variables
   navigator_speak = new SpeechSynthesisUtterance();
+  speaking!: boolean;
 
-  constructor(private translateService: TranslateService, private navegador: Router) {}
+  constructor(
+    private translateService: TranslateService,
+    private navegador: Router
+  ) {
+    console.clear();
+  }
 
   // Translate Function
   translate() {
@@ -45,14 +51,17 @@ export class TranslateComponent {
   }
 
   recognition() {
+    // Starting recognition.
     this.windows_recognition.start();
     this.recording = true;
 
+    // Taking the value of the recognition.
     this.windows_recognition.onresult = (event: any) => {
       this.text_recognition = event.results[0][0].transcript;
-      this.text += ` ${this.text_recognition}`;
+      this.text += ` ${this.text_recognition.toLowerCase()}`;
     };
 
+    // Making a valitation if the microphone are not recording.
     this.windows_recognition.addEventListener('end', () => {
       this.recording = false;
       this.translate();
@@ -69,13 +78,23 @@ export class TranslateComponent {
       return;
     }
 
-    console.log({tospeak, language});
+    // Cancel the voice if the user click two times the button
+    this.speaking = !this.speaking;
 
-    this.navigator_speak.text = tospeak;
-    this.navigator_speak.lang = language;
-    this.navigator_speak.rate = 0.8;
+    if (this.speaking) {
+      this.navigator_speak.text = tospeak;
+      this.navigator_speak.lang = language;
+      this.navigator_speak.rate = 0.8;
 
-    speechSynthesis.speak(this.navigator_speak);
+      speechSynthesis.speak(this.navigator_speak);
+    } else if (speechSynthesis.speaking && !this.speaking) {
+      speechSynthesis.cancel();
+    }
+
+    // Making a valitation if the voice is not talking, this variable gonna be false.
+    this.navigator_speak.addEventListener('end', () => {
+      return (this.speaking = false);
+    });
   }
 
   reverse() {
@@ -95,7 +114,19 @@ export class TranslateComponent {
     this.translate();
   }
 
-  LogOut(){
+  LogOut() {
     this.navegador.navigate(['/login']);
+  }
+
+  textCopied!: boolean;
+  Copy(text: string) {
+    if (!text) return;
+
+    navigator.clipboard.writeText(text);
+    this.textCopied = true;
+
+    setTimeout(() => {
+      this.textCopied = false;
+    }, 1000);
   }
 }

@@ -80,8 +80,8 @@ export const languages_symbols = {
   ml: "Malayalam",
   mn: "Mongol",
   zh: "Chino",
-  zh_CN: "Chino (simplificado)",
-  zh_TW: "Chino (tradicional)",
+  "zh-CN": "Chino (simplificado)",
+  "zh-TW": "Chino (tradicional)",
   tr: "Turco",
   ru: "Ruso",
   no: "Noruego"
