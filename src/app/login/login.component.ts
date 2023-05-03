@@ -28,20 +28,22 @@ export class LoginComponent {
     });
   }
 
-  DeleteAccount(id: string, contraseña: string) {
+  DeleteAccount(id: string, password: string) {
     if (!id) {
       return console.log('No tienes id');
     }
 
     const prompt_password = prompt(
-      'Escribe la contraseña para eliminar la cuenta'
+      'Escribe la password para eliminar la cuenta'
     );
 
-    if (prompt_password == contraseña) {
+    if (prompt_password == password) {
       this.mongodb.DeleteData(id).subscribe((d) => {
         console.log('¡Se ha eliminado tu cuenta correctamente!', d);
         this.ObtenerDatos();
       });
+    } else {
+      alert('La password es incorrecta');
     }
   }
 
@@ -83,7 +85,7 @@ export class LoginComponent {
         result.correo == this.accountData.email &&
         result.contrasena != this.accountData.password
       ) {
-        this.Alert_password()
+        this.Alert_password();
         return;
       }
 
@@ -92,7 +94,7 @@ export class LoginComponent {
         result.contrasena == this.accountData.password
       ) {
         console.log('Bienvenido');
-        this.rutas.navigate(['/translate'])
+        this.rutas.navigate(['/translate']);
         this.ShowAlert();
       }
     });
