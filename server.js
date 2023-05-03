@@ -88,7 +88,7 @@ app.put("/db/update/:id", (req, res) => {
   const { id } = req.params;
   const request_body = req.body;
 
-  if (!request_body.contrasena) {
+  if (!request_body .contrasena) {
     return res.json({ error: "Tienes que subir una contrasena" }).status(400);
   }
 

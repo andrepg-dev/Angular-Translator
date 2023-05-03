@@ -262,6 +262,16 @@
   user-select: none;
   border-radius: 20px;
   box-shadow: 0px 0px 5px white;
+  animation: 2.5s cubic-bezier(0.25, 1, 0.3, 1) circle-in-center both;
+}
+
+@keyframes circle-in-center {
+  from {
+    clip-path: circle(0%);
+  }
+  to {
+    clip-path: circle(125%);
+  }
 }
 
 .copy * {
@@ -292,8 +302,7 @@ footer *:hover {
 }
 
 @media screen and (max-width: 1000px) {
-
-  .logo-title{
+  .logo-title {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -304,54 +313,53 @@ footer *:hover {
     font-size: 16px;
   }
 
-  .btn-edit{
+  .btn-edit {
     height: 30px;
     font-size: 13px;
   }
 
-  .btn-edit *{
+  .btn-edit * {
     font-size: 13px;
   }
 
-  .menu{
+  .menu {
     height: 70px;
     padding: 0px 20px;
   }
 
-  .contenedor .box  {
+  .contenedor .box {
     width: 100%;
     padding: 10px;
   }
 
-  .box-translate{
+  .box-translate {
     height: 220px;
   }
 
-  .box-translate .reverse .icon{
+  .box-translate .reverse .icon {
     padding: 5px;
     font-size: 25px;
   }
 
-  .box-translate .input textarea{
+  .box-translate .input textarea {
     font-size: 14px;
     padding: 10px;
   }
 
-  .box-translate select{
+  .box-translate select {
     padding: 0px 10px;
     height: 40px;
   }
 
-  .box-translate .icons span{
+  .box-translate .icons span {
     font-size: 25px;
   }
 
-  .box-translate .input{
+  .box-translate .input {
     height: 40%;
   }
 
-  .contenido-traductor{
+  .contenido-traductor {
     padding: 20px;
   }
-
 }

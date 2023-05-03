@@ -5,7 +5,7 @@ import { RegistroComponent } from '../registro/registro.component';
 import { TranslateComponent } from '../translate/translate.component';
 
 const rutas: Routes = [
-  {path: '', redirectTo: 'translate', pathMatch: 'full'},
+  {path: '', redirectTo: 'registro', pathMatch: 'full'},
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
   {path: 'translate', component: TranslateComponent}
