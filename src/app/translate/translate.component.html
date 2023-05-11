@@ -7,24 +7,12 @@
       <h1>TRANSLATE APP</h1>
       <span class="material-symbols-outlined"> translate </span>
     </div>
-    <div class="logo-buttons">
-      <button class="btn-edit" (click)="LogOut()">
-        Salir<span class="material-symbols-outlined"> logout </span>
-      </button>
-    </div>
   </div>
 
   <div class="contenido-traductor">
     <div class="box">
       <h3 class="box-title">
-        ¿A QUÉ IDIOMA QUIERES TRADUCIR?
-
-        <select id="pet-select" name="languageSelectedTo" [(ngModel)]="languageSelectedTo" (change)="translate()">
-          <option value="">Seleccionar un idioma</option>
-          <option *ngFor="let idiomas of languagesArray" [value]="idiomas[0]">
-            {{ idiomas[1] }}
-          </option>
-        </select>
+        ¿QUE QUIERES TRADUCIR?
       </h3>
 
       <div class="box-translate">
@@ -34,8 +22,9 @@
           </div>
 
           <div class="icons">
-            <span *ngIf="text" class="material-symbols-outlined" (click)="hear_voice(text, languageSelectedFrom)"
-              [ngClass]="{'text-blue': speaking}"> volume_up </span>
+            <span *ngIf="text" #hear_from class="material-symbols-outlined"
+              (click)="hear_voice(text, languageSelectedFrom, hear_from)"> volume_up
+            </span>
             <span class="material-symbols-outlined" (click)="recognition()" [ngClass]="{'text-blue': recording}"> mic
             </span>
           </div>
@@ -62,8 +51,9 @@
           <div class="icons" style="justify-content: flex-end;">
             <p *ngIf="result" [ngClass]="{'copy': textCopied}" (click)="Copy(result)">¡Copied! <span
                 class="material-symbols-outlined"> content_copy </span></p>
-            <span *ngIf="result" class="material-symbols-outlined" (click)="hear_voice(result, languageSelectedTo)"
-              [ngClass]="{'text-blue': speaking}"> volume_up </span>
+            <span *ngIf="result" #hear_to class="material-symbols-outlined"
+              (click)="hear_voice(result, languageSelectedTo, hear_to)"> volume_up
+            </span>
           </div>
 
           <select id="pet-select" name="languageSelectedTo" [(ngModel)]="languageSelectedTo" (change)="translate()">

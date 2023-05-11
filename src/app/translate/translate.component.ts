@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { languages_symbols } from '../translate/languages';
 import { TranslateService } from '../Services/translate.service';
-import { Router } from '@angular/router';
+import { languages_symbols } from '../translate/languages';
 
 @Component({
   selector: 'app-translate',
@@ -28,10 +27,7 @@ export class TranslateComponent {
   navigator_speak = new SpeechSynthesisUtterance();
   speaking!: boolean;
 
-  constructor(
-    private translateService: TranslateService,
-    private navegador: Router
-  ) {
+  constructor(private translateService: TranslateService) {
     console.clear();
   }
 
@@ -72,7 +68,7 @@ export class TranslateComponent {
     this.windows_recognition.stop();
   }
 
-  hear_voice(tospeak: string, language: string) {
+  hear_voice(tospeak: string, language: string, element: HTMLElement) {
     // Making a validation to check if the result is null
     if (!tospeak) {
       return;
@@ -80,19 +76,21 @@ export class TranslateComponent {
 
     // Cancel the voice if the user click two times the button
     this.speaking = !this.speaking;
-
     if (this.speaking) {
       this.navigator_speak.text = tospeak;
       this.navigator_speak.lang = language;
       this.navigator_speak.rate = 0.8;
+      element.classList.add('text-blue');
 
       speechSynthesis.speak(this.navigator_speak);
     } else if (speechSynthesis.speaking && !this.speaking) {
+      element.classList.remove('text-blue');
       speechSynthesis.cancel();
     }
 
     // Making a valitation if the voice is not talking, this variable gonna be false.
     this.navigator_speak.addEventListener('end', () => {
+      element.classList.remove('text-blue');
       return (this.speaking = false);
     });
   }
@@ -114,12 +112,9 @@ export class TranslateComponent {
     this.translate();
   }
 
-  LogOut() {
-    this.navegador.navigate(['/login']);
-  }
-
   textCopied!: boolean;
   Copy(text: string) {
+    // If are not text return
     if (!text) return;
 
     navigator.clipboard.writeText(text);
